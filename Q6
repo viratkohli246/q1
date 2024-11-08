@@ -1,0 +1,41 @@
+#Q.6-For the parity matrix P= [ 0 1 1, 1 1 1, 1 1 0, 1 0 1] Find all codewords and decode any one codeword (n=7, k=4)
+
+import numpy as np
+n=7
+k=4
+p=np.array([[0,1,1],[1,1,1],[1,1,0],[1,0,1]])
+print("parity:\n",p)
+I=np.eye(k)
+print("Identity (of k bits) :\n",I)
+g=np.hstack([I,p])
+print("generator:\n",g)
+m=np.arange(2**k)
+print("\n",m)
+d=np.zeros((2**k,k))
+print("\n",d)
+for i in m:
+  z='{0:04b}'.format(i)
+  zs=[int(i) for i in z]
+  d[i,:]=zs
+print("\n",d)
+c=((np.dot(d,g))%2).astype(int)
+print("\ncodewords:\n",c)
+pt=np.transpose(p)
+print("\nparity transpose:\n",pt)
+I1=(np.eye(n-k)).astype(int)
+print("\nIdentity (of [n-k] bits) :\n",I1)
+h=np.hstack([pt,I1])
+print("\nh:\n",h)
+idx=3
+loc=1
+r=c[idx,:]
+r[loc]=int(not(r[loc]))
+s=((np.dot(r,h.T))%2).astype(int)
+print("\ns:\n",s)
+h=h.T
+for i in range(h.shape[1]):
+  if np.array_equal(s,h[i,:]):
+    r[i]=int(not r[i])
+    print("Error in bit:",i)
+    break
+print("Corrected codeword:",format(r%2))
