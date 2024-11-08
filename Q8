@@ -1,0 +1,27 @@
+#Q.8-For generator g =[1, 1, 0, 1] ie generator polynomial x3+x2+1 and message M= [0 0 1 1] find systematic cyclic code(n=7, k=4)
+
+import numpy as np
+g=np.array([1,1,0,1])
+print("generator:\n",g)
+gp=np.poly1d(g)
+print("\ngenerator polynomial:\n",gp)
+idx=3
+m=d[idx,:]
+print(m)
+mp=np.poly1d(m)
+print(mp)
+m2=np.insert(m,0,np.zeros(n-k))
+print(m2)
+m3=np.roll(m2,k)
+print(m3)
+Mp=np.poly1d(m3)
+print(Mp)
+quo,rem=np.polydiv(Mp,gp)
+rem=np.absolute(rem)%2
+if len(rem)!=n:
+   rem=np.insert(rem,0,np.zeros((n-k)-len(rem)))
+else:
+  rem=rem
+print(rem)
+C=np.append(m,rem)
+print(C)
