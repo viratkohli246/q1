@@ -1,0 +1,35 @@
+#Q.11-Find the CRC code given g= [1 0 1 1] and M=[ 1 0 0 1]
+
+import numpy as np
+n=7
+k=4
+M=np.array([1,0,0,1])
+mp=np.poly1d(M)
+print(mp,"\n")
+G=np.array([1,0,1,1])
+gp=np.poly1d(G)
+print(gp,"\n")
+p=np.zeros(n-k+1)
+p[0]=1
+pp=np.poly1d(p)
+print(pp,"\n")
+sp=np.polymul(mp,pp)
+print(sp,"\n")
+q,r=np.polydiv(sp,gp)
+r=r.c%2
+if len(r)!=n-k:
+  r=np.insert(r,0,np.zeros(n-k-len(r)))
+print(r,"\n")
+crc_code=np.append(M,r)
+print(crc_code,"\n")
+crc_p=np.poly1d(crc_code)
+q1,r1=np.polydiv(crc_p,gp)
+r1=r1.c%2
+print(r1,"\n")
+# crc_code[4]=int(not(crc_code[4]))
+# print(crc_code,"\n")
+# crc_p=np.poly1d(crc_code)
+# print(crc_p,"\n")
+# q2,r2=np.polydiv(crc_p,gp)
+# r2=r2.c%2
+# print(r2,"\n")
