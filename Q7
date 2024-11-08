@@ -1,0 +1,29 @@
+#Q.7-For generator g =[1, 1, 0, 1] ie generator polynomial x3+x2+1, find all non systematic cyclic codeword (n=7, k=4)
+
+import numpy as np
+g=np.array([1,1,0,1])
+print("generator:\n",g)
+gp=np.poly1d(g)
+print("\ngenerator polynomial:\n",gp)
+n=7
+k=4
+m=np.arange(2**k)
+print("\nm:\n",m)
+d=np.zeros((2**k,k))
+print("\nd:\n",d)
+c=np.zeros((2**k,n))
+print("\nc:\n",c)
+for i in m:
+  z='{0:04b}'.format(i)
+  zs=[int(i) for i in z]
+  d[i,:]=zs
+  m=d[i,:]
+  mp=np.poly1d(m)
+  cp=mp*gp
+  x=cp.c%2
+  if len(x)!=n:
+    c[i,:]=np.insert(x,0,np.zeros(n-len(x)))
+  else:
+    c[i,:]=x
+print("\n",x)
+print("\n",d)
