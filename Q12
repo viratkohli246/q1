@@ -1,0 +1,26 @@
+#Q.12-Plot ASK waveform for bit sequence 1, 0 , 1, 1, 0, 1
+
+import numpy as np
+import matplotlib.pyplot as plt
+from math import pi
+data=np.array([1,1,0,1,0])
+print(data)
+fl=2
+fh=4
+t=np.arange(0,1,1/500)
+xl=np.sin(2*pi*fl*t)
+xh=np.sin(2*pi*fh*t)
+fig,(ax1,ax2)=plt.subplots(2,1,figsize=(10,10))
+z=0
+lw=3
+fs=18
+for i in range(len(data)):
+  #carrier
+  ax1.plot(t+z,xl,linewidth=lw)
+  ax1.set_ylabel('Carrier Signal',fontsize=fs)
+  ax1.grid()
+  #ASK
+  ax2.plot(t+z,xl*data[i],linewidth=lw)
+  ax2.set_ylabel('ASK',fontsize=fs)
+  ax2.grid()
+  z=z+1
