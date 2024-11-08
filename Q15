@@ -1,0 +1,45 @@
+#Q.15-Plot QPSK waveform for bit sequence 1, 0 , 1, 1, 0, 1
+
+import numpy as np
+import matplotlib.pyplot as plt
+from math import pi
+data=np.array([1,0,1,1,0,1])
+print(data)
+data_even=[data[i]for i in range (len(data))if(i+1)%2==0]
+print(data_even)
+data_odd=[data[i]for i in range (len(data))if(i+1)%2==1]
+print(data_odd)
+data_even=np.repeat(data_even,2)
+print(data_even)
+data_odd=np.repeat(data_odd,2)
+print(data_odd)
+f=2
+t=np.arange(0,1,1/500)
+x=np.sin(2*pi*f*t)
+c1=np.sin(2*pi*f*t+pi/4)
+c2=np.sin(2*pi*f*t+3*pi/4)
+c3=np.sin(2*pi*f*t+5*pi/4)
+c4=np.sin(2*pi*f*t+7*pi/4)
+fig,(ax1,ax2)=plt.subplots(2,1,figsize=(10,10))
+z=0
+lw=3
+fs=18
+for i in range(len(data)-1):
+  #carrier
+  ax1.plot(t+z,x,linewidth=lw)
+  ax1.set_ylabel('Carrier Signal',fontsize=fs)
+  ax1.grid()
+  #QPSK
+  if data_odd[i+1]==1:
+    if data_even[i]==1:
+      ax2.plot(t+z,c4,linewidth=lw)
+    else:
+      ax2.plot(t+z,c3,linewidth=lw)
+  else:
+    if data_even[i]==1:
+      ax2.plot(t+z,c1,linewidth=lw)
+    else:
+      ax2.plot(t+z,c2,linewidth=lw)
+  ax2.set_ylabel('QPSK',fontsize=fs)
+  ax2.grid()
+  z=z+1
