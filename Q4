@@ -1,0 +1,19 @@
+#Q.4-PNRZ
+
+import numpy as np
+import matplotlib.pyplot as plt
+bits=np.array([1,1,0,0,1,0,1])
+print(bits)
+bit_rate=1
+n=500
+N=n*len(bits)
+p_nrz= np.zeros([N,1])
+T=len(bits)*bit_rate
+dt=T/N
+t=np.arange(0,T,dt)
+for i in range(len(bits)):
+  if bits[i]==1:
+    p_nrz[i*n:(i+1)*n]=1
+  else:
+    p_nrz[i*n:(i+1)*n]=-1
+plt.plot(t,p_nrz)
