@@ -1,0 +1,19 @@
+#Q.9-For the convolutional encoder having g1=[ 1 1 1] and g2=[1 0 1] find the codeword using time domain approach for the message m=[ 1 0 0 1 1]
+
+import numpy as np
+g1=np.array([1,1,1])
+print(g1,"\n")
+g2=np.array([1,0,1])
+print(g2,"\n")
+m=np.array([1,0,0,1,1])
+print(m,"\n")
+out1=(np.convolve(m,g1))%2
+print(out1,"\n")
+out2=(np.convolve(m,g2))%2
+print(out2,"\n")
+codeword=np.zeros((out1.shape[0],2))
+for i in range (out1.shape[0]):
+  codeword[i,:]=[out1[i],out2[i]]
+print(codeword,"\n")
+codeword=(codeword.flatten()).astype(int)
+print(codeword)
