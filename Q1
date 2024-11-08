@@ -1,0 +1,31 @@
+#Q.1-For the given joint probability matrix
+#1/30, 3/30, 1/30
+#2/15, 1/15, 4/15
+#1/10, 3/10, 1/10
+#Find the entropies H(X,Y), H(X), H(Y), H(Y/X) and H(X/Y)
+
+import numpy as np
+joint=np.array([[1/30,3/30,1/30],[2/15,1/15,4/15],[1/10,3/10,1/10]])
+print("joint:\n",joint)
+p_x=np.sum(joint,axis=1)
+print("p_x:\n",p_x)
+p_y=np.sum(joint,axis=0)
+print("p_y:\n",p_y)
+p_xgy=joint/p_y
+print("p_xgy:\n",p_xgy)
+p_ygx=joint/p_x[:,np.newaxis]
+print("p_ygx:\n",p_ygx)
+h_x=-np.sum([p*np.log2(p) for p in p_x])
+print("h_x:\n",h_x)
+h_y=-np.sum([p*np.log2(p) for p in p_y])
+print("h_y:\n",h_y)
+joint1=joint.flatten()
+h_xy=-np.sum([p*np.log2(p) for p in joint1])
+print("h_xy:\n",h_xy)
+mask=p_xgy>0
+h_xgy=-np.sum([joint[mask]*np.log2(p_xgy[mask])])
+print("h_xgy:\n",h_xgy)
+mask=p_ygx>0
+h_ygx=-np.sum([joint[mask]*np.log2(p_ygx[mask])])
+print("h_ygx:\n",h_ygx)
+print (joint1)
