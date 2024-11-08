@@ -1,0 +1,21 @@
+#Q.5-PRZ
+
+import numpy as np
+import matplotlib.pyplot as plt
+bits=np.array([1,1,0,0,1,0,1])
+print(bits)
+bit_rate=1
+n=500
+N=n*len(bits)
+p_rz= np.zeros([N,1])
+T=len(bits)*bit_rate
+dt=T/N
+t=np.arange(0,T,dt)
+for i in range(len(bits)):
+  if bits[i]==1:
+    p_rz[i*n:int((i+0.5)*n)]=1
+    p_rz[int((i+0.5)*n):(i+1)*n]=0
+  else:
+    p_rz[i*n:int((i+0.5)*n)]=-1
+    p_rz[int((i+0.5)*n):(i+1)*n]=0
+plt.plot(t,p_rz)
